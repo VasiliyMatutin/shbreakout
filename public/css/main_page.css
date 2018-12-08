@@ -1,0 +1,14 @@
+#desktop-container {display: block;}
+#mobile-container {display: none;}
+
+@media screen and (max-width: 768px) {
+
+    #desktop-container {display: none;}
+    #mobile-container {display: block;}
+
+}
+
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
