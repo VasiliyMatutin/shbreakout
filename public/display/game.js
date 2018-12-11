@@ -51,6 +51,7 @@ function create() {
     });
 
     this.physics.add.collider(ball, paddle);
+    this.scene.pause();
 }
 
 function update() {
@@ -58,5 +59,5 @@ function update() {
 }
 
 function startGame() {
-
+    game.scene.resume('default');
 }

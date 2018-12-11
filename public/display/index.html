@@ -14,9 +14,12 @@
 <body>
     <script src="/display/game.js"></script>
     <script src="/display/display.js"></script>
-    <div id="desktop-container">
+    <div id="display">
             <div class="main">
-                <button id="gameStart">Start!</button>
+                <div class="room_number">
+                    Enter this code: <p id="roomNumber"></p>
+                </div>
+                <button id="gameStart" disabled>Start!</button>
             </div>
             <div class='game' id='game-container'></div>
     </div>

@@ -5,9 +5,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1000, user-scalable=yes" />
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/controller/controller.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-
+    <script src="/controller/controller.js"></script>
+    <div id="controller">
+        <div class="main">
+            <label>
+                <input id="roomNumber" type="number" name="roomNumber" min="100000" max="999999">
+            </label><br>
+            <button id="confirm">Join</button>
+        </div>
+        <div class="buttons">
+            <button id="left"><</button>
+            <button id="right">></button>
+        </div>
+    </div>
 </body>
 </html>
