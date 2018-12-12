@@ -1,21 +1,35 @@
-var socket = io();
+const socket = io();
 
-socket.on('cannon_join_room', (data) => {
+let playerNumber;
+let roomNumber;
+
+socket.on('connection_error', (data) => {
     console.log('cannon_join_room');
 });
 
 socket.on('joined_room', (data) => {
-    console.log('joined_room');
+    playerNumber = data.playerNumber;
+});
+
+socket.on('game_start', function (data) {
+    $(document).ready(function() {
+        $('#main-container').hide();
+        $('#buttons-container').show();
+    });
 });
 
 $(document).ready(function() {
     $('#left').on('mousedown', function() {
         socket.emit('player_state_changed', {
+            playerNumber,
+            roomNumber,
             direction: 'left',
             start: true
         });
-    }).on('mouseup mouseleave', function() {
+    }).on('mouseup', function() {
         socket.emit('player_state_changed', {
+            playerNumber,
+            roomNumber,
             direction: 'left',
             start: false
         });
@@ -23,11 +37,15 @@ $(document).ready(function() {
 
     $('#right').on('mousedown', function() {
         socket.emit('player_state_changed', {
+            playerNumber,
+            roomNumber,
             direction: 'right',
             start: true
         });
-    }).on('mouseup mouseleave', function() {
+    }).on('mouseup', function() {
         socket.emit('player_state_changed', {
+            playerNumber,
+            roomNumber,
             direction: 'right',
             start: false
         });
@@ -35,9 +53,9 @@ $(document).ready(function() {
 
     $('#confirm').off('click').on('click', function (event) {
         event.preventDefault();
-        const gameRoom = $('#roomNumber').val();
+        roomNumber = $('#roomNumber').val();
         socket.emit('controller_connection', {
-            roomNumber: gameRoom,
+            roomNumber: roomNumber,
             playerName: 'testBot'
         });
     });

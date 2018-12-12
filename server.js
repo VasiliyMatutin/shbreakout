@@ -44,6 +44,25 @@ io.sockets.on('connection', function (socket) {
         addPlayerToRoom(socket, data.roomNumber, data.playerName);
     });
 
+    //Player makes smf
+    socket.on('player_state_changed', function (data) {
+        if (!gameSessions.has(data.roomNumber) || gameSessions.get(data.roomNumber).players[socket.id].playerNumber !== data.playerNumber) {
+            kickClient(socket);
+            return false;
+        }
+
+        // Emit player-update to viewer
+        io.to(gameSessions.get(data.roomNumber).displaySocket).emit('player_state_changed', data);
+    });
+
+    //Players want to start
+    socket.on('game_start', function (data) {
+        gameSessions.get(data.roomNumber).active = true;
+
+        // Emit game-start to all joined players
+        socket.broadcast.to('room-' + data.roomNumber).emit('game_start');
+    });
+
 });
 
 function assignGameRoomOnConnection(socket) {
@@ -65,32 +84,33 @@ function assignGameRoomOnConnection(socket) {
     // Add viewer to gameRoom
     socket.join('room-' + roomNumber);
 
-    // Emit updated gameState to viewer
     socket.emit('room_assigned', {
         roomNumber
     });
 }
 
 function addPlayerToRoom(socket, roomNumber, playerName) {
+    log('&&&');
     if (!gameSessions.has(roomNumber) || gameSessions.get(roomNumber).players.length === PLAYERS_REQUIRED) {
-        socket.emit('cannon_join_room');
+        kickClient(socket);
         return;
     }
 
     // Add player to gameRoom
     socket.join('room-' + roomNumber);
 
-    //TODO: generate color
-    var playerColor = '#0000';
+    const playerNumber = Object.keys(gameSessions.get(roomNumber).players).length + 1;
+
     const room = gameSessions.get(roomNumber);
     room.players[socket.id] = {
         playerName,
-        playerColor
+        playerNumber
     };
     gameSessions.set(roomNumber, room);
 
-    // Emit updated gameState to viewer
-    socket.emit('joined_room');
+    socket.emit('joined_room', {
+        playerNumber
+    });
 
     roomFilled(roomNumber)
 }
@@ -103,6 +123,11 @@ function roomFilled(roomNumber) {
 
 function log(logline) {
     console.log('[' + new Date().toUTCString() + '] ' + logline);
+}
+
+function kickClient(socket) {
+    io.to(socket.id).emit('connection_error');
+    socket.disconnect();
 }
 
 function normalizePort(val) {

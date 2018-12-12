@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Interactive Breakout</title>
+    <link rel="stylesheet" href="../css/controller.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1000, user-scalable=yes" />
     <script src="/socket.io/socket.io.js"></script>
@@ -10,13 +11,13 @@
 <body>
     <script src="/controller/controller.js"></script>
     <div id="controller">
-        <div class="main">
+        <div class="main" id="main-container">
             <label>
                 <input id="roomNumber" type="number" name="roomNumber" min="100000" max="999999">
             </label><br>
             <button id="confirm">Join</button>
         </div>
-        <div class="buttons">
+        <div class="buttons" id="buttons-container">
             <button id="left"><</button>
             <button id="right">></button>
         </div>

@@ -1,5 +1,6 @@
 const WIDTH = 1920;
 const HEIGHT = 1080;
+const PLAYER_SPEED_CHANGES = 200;
 
 const config = {
     type: Phaser.AUTO,
@@ -28,6 +29,7 @@ const game = new Phaser.Game(config);
 let ball;
 let paddle;
 let bricks;
+let player_speed = 0;
 
 function preload() {
     this.load.image('ball', '/images/ball.png');
@@ -55,7 +57,6 @@ function create() {
 }
 
 function update() {
-    paddle.x = this.input.x;
 }
 
 function startGame() {

@@ -1,14 +1,42 @@
-#desktop-container {display: block;}
-#mobile-container {display: none;}
+@import "__base.css";
+
+#desktop-container {
+    display: block;
+}
+#mobile-container {
+    display: none;
+}
+
+.main {
+    border-top: 19px solid black;
+    background: #272d33;
+}
+
+h1 {
+    font-family: 'NevisBold', monospace;
+    font-size: 150px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
 
 @media screen and (max-width: 768px) {
 
-    #desktop-container {display: none;}
-    #mobile-container {display: block;}
+    #desktop-container {
+        display: none;
+    }
+    #mobile-container {
+        display: block;
+    }
 
-}
-
-body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    h1 {
+        font-family: 'NevisBold', monospace;
+        font-size: 30px;
+        text-align: center;
+        margin-top: 40px;
+    }
 }
