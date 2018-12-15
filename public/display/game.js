@@ -1,6 +1,6 @@
 const WIDTH = 1920;
 const HEIGHT = 1080;
-const PLAYER_SPEED_CHANGES = 200;
+const PLAYER_SPEED_CHANGES = 250;
 
 const config = {
     type: Phaser.AUTO,
@@ -48,7 +48,9 @@ function create() {
     ball.body.onWorldBounds = true;
     this.physics.world.on("worldbounds", function (body, up, down, left, right) {
         if (down) {
-            alert("Game over!");
+            game.scene.pause('default');
+            gameOver();
+            //alert("Game over!");
         }
     });
 
@@ -60,5 +62,6 @@ function update() {
 }
 
 function startGame() {
+    //TODO: regenerate game state, because this method will be called on game restart
     game.scene.resume('default');
 }

@@ -63,6 +63,11 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.to('room-' + data.roomNumber).emit('game_start');
     });
 
+    socket.on('game_over', function (data) {
+        gameSessions.get(data.roomNumber).active = false;
+        // Emit game-start to all joined players
+        socket.broadcast.to('room-' + data.roomNumber).emit('game_over');
+    });
 });
 
 function assignGameRoomOnConnection(socket) {

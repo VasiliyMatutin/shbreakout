@@ -14,7 +14,15 @@ socket.on('joined_room', (data) => {
 socket.on('game_start', function (data) {
     $(document).ready(function() {
         $('#main-container').hide();
+        $('#end-container').hide();
         $('#buttons-container').show();
+    });
+});
+
+socket.on('game_over', function (data) {
+    $(document).ready(function() {
+        $('#buttons-container').hide();
+        $('#end-container').show();
     });
 });
 

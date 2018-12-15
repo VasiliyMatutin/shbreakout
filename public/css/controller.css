@@ -1,3 +1,11 @@
 .buttons {
     display: none;
 }
+
+.errors {
+    display: none;
+}
+
+.endgame {
+    display: none;
+}

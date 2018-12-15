@@ -8,3 +8,11 @@
   z-index: 10;
   display: none;
 }
+
+.errors {
+  display: none;
+}
+
+.endgame {
+  display: none;
+}

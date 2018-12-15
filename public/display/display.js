@@ -39,8 +39,27 @@ $(document).ready(function() {
         socket.emit('game_start', {
             roomNumber
         });
+        $('#main-container').hide();
+        $('#game-container').show();
+        startGame();
+    });
+    $('#gameRestart').off('click').on('click', function (event) {
+        event.preventDefault();
+        socket.emit('game_start', {
+            roomNumber
+        });
+        $('#end-container').hide();
         $('#game-container').show();
         startGame();
     });
 });
 
+function gameOver() {
+    $(document).ready(function() {
+        $('#game-container').hide();
+        $('#end-container').show();
+    });
+    socket.emit('game_over', {
+        roomNumber
+    });
+}
