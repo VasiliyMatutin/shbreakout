@@ -17,19 +17,18 @@ socket.on('player_ready', function (data) {
 });
 
 socket.on('player_state_changed', function (data) {
-    if (data.direction === 'left') {
-        if (data.start) {
-            player_speed -= PLAYER_SPEED_CHANGES;
+    if (data.start) {
+        if (data.direction === 'left') {
+                player_speed -= PLAYER_SPEED_CHANGE;
+        } else if (data.direction === 'right'){
+                player_speed += PLAYER_SPEED_CHANGE;
         } else {
-            player_speed += PLAYER_SPEED_CHANGES;
+            player_speed = 0
         }
     } else {
-        if (data.start) {
-            player_speed += PLAYER_SPEED_CHANGES;
-        } else {
-            player_speed -= PLAYER_SPEED_CHANGES;
-        }
+        player_speed = 0
     }
+
     paddle.setVelocityX(player_speed);
 });
 

@@ -1,6 +1,6 @@
 const WIDTH = 1920;
 const HEIGHT = 1080;
-const PLAYER_SPEED_CHANGES = 250;
+const PLAYER_SPEED_CHANGE = 500;
 
 const config = {
     type: Phaser.AUTO,
@@ -39,13 +39,17 @@ function preload() {
 
 function create() {
     ball = this.physics.add.sprite(WIDTH / 2, HEIGHT - 25, 'ball');
-    bricks = this.physics.add.staticGroup();
-    paddle = this.physics.add.sprite(WIDTH / 2, HEIGHT - 5, 'paddle');
-    paddle.body.immovable = true;
     ball.setVelocity(250, -250);
     ball.setBounce(1);
     ball.setCollideWorldBounds(true);
     ball.body.onWorldBounds = true;
+
+    bricks = this.physics.add.staticGroup();
+
+    paddle = this.physics.add.sprite(WIDTH / 2, HEIGHT - 5, 'paddle');
+    paddle.body.immovable = true;
+    paddle.setCollideWorldBounds(true);
+
     this.physics.world.on("worldbounds", function (body, up, down, left, right) {
         if (down) {
             game.scene.pause('default');
