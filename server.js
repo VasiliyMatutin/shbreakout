@@ -64,9 +64,38 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('game_over', function (data) {
-        gameSessions.get(data.roomNumber).active = false;
         // Emit game-start to all joined players
         socket.broadcast.to('room-' + data.roomNumber).emit('game_over');
+    });
+
+    socket.on('disconnect', function (reason) {
+        // if viewer disconnects, delete game and emit game-invalid
+        let isViewer = false;
+        for (let key of gameSessions.keys()) {
+            if (gameSessions.get(key).displaySocket === socket.id) {
+                isViewer = true;
+                socket.broadcast.to('room-' + key).emit('room_destroyed');
+                gameSessions.delete(key);
+                return;
+            }
+        }
+
+        if (!isViewer) {
+            //var gameRoom = false;
+            gameSessions.forEach(function(value, key) {
+                for (let player in value.players) {
+                    if (player === socket.id) {
+                        if (gameSessions.get(key).active === true) {
+                            socket.broadcast.to('room-' + key).emit('room_destroyed');
+                            gameSessions.delete(key);
+                        } else {
+                            delete gameSessions.get(key).players[player];
+                        }
+                        return;
+                    }
+                }
+            });
+        }
     });
 });
 
@@ -95,7 +124,6 @@ function assignGameRoomOnConnection(socket) {
 }
 
 function addPlayerToRoom(socket, roomNumber, playerName) {
-    log('&&&');
     if (!gameSessions.has(roomNumber) || gameSessions.get(roomNumber).players.length === PLAYERS_REQUIRED) {
         kickClient(socket);
         return;

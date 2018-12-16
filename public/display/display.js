@@ -16,6 +16,16 @@ socket.on('player_ready', function (data) {
     });
 });
 
+socket.on('room_destroyed', function (data) {
+    $(document).ready(function() {
+        stopGame();
+        $('#main-container').hide();
+        $('#end-container').hide();
+        $('#game-container').hide();
+        $('#room-delete-container').show();
+    });
+});
+
 socket.on('player_state_changed', function (data) {
     if (data.start) {
         if (data.direction === 'left') {

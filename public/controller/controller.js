@@ -26,6 +26,15 @@ socket.on('game_over', function (data) {
     });
 });
 
+socket.on('room_destroyed', function (data) {
+    $(document).ready(function() {
+        $('#buttons-container').hide();
+        $('#main-container').hide();
+        $('#end-container').hide();
+        $('#room-delete-container').show();
+    });
+});
+
 $(document).ready(function() {
     $('#left').on('mousedown', function() {
         socket.emit('player_state_changed', {

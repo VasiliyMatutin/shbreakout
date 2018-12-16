@@ -65,6 +65,10 @@ function create() {
 function update() {
 }
 
+function stopGame() {
+    game.scene.pause('default');
+}
+
 function startGame() {
     //TODO: regenerate game state, because this method will be called on game restart
     game.scene.resume('default');
