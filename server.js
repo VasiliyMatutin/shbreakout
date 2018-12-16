@@ -7,7 +7,7 @@ const socketIO = require('socket.io');
 const $ = require("jquery");
 
 const gameSessions = new Map();
-const PLAYERS_REQUIRED = 1;
+const PLAYERS_REQUIRED = 2;
 const ROOM_NUMBER_UP_LIMIT = 999999;
 const ROOM_NUMBER_DOWN_LIMIT = 100000;
 
@@ -59,6 +59,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('game_start', function (data) {
         gameSessions.get(data.roomNumber).active = true;
 
+        io.to(gameSessions.get(data.roomNumber).displaySocket).emit('game_start', gameSessions.get(data.roomNumber).players);
         // Emit game-start to all joined players
         socket.broadcast.to('room-' + data.roomNumber).emit('game_start');
     });
@@ -153,9 +154,9 @@ function addPlayerToRoom(socket, roomNumber, playerName) {
 
 function roomFilled(roomNumber) {
     if (Object.keys(gameSessions.get(roomNumber).players).length === PLAYERS_REQUIRED){
-        io.to(gameSessions.get(roomNumber).displaySocket).emit('player_ready');
+        io.to(gameSessions.get(roomNumber).displaySocket).emit('players_ready');
     } else {
-        io.to(gameSessions.get(roomNumber).displaySocket).emit('player_not_ready');
+        io.to(gameSessions.get(roomNumber).displaySocket).emit('players_not_ready');
     }
 }
 

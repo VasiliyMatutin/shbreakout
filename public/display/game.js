@@ -1,6 +1,8 @@
 const WIDTH = 1920;
 const HEIGHT = 1080;
+const PADDING = 10;
 const PLAYER_SPEED_CHANGE = 500;
+const PLAYERS_NUMBER = 2;
 
 const config = {
     type: Phaser.AUTO,
@@ -24,21 +26,26 @@ const config = {
     parent: 'game-container'
 };
 
-
 const game = new Phaser.Game(config);
 let ball;
-let paddle;
 let bricks;
-let player_speed = 0;
+var players = [];
+
+let ball_name = 'ball';
+let paddle_1_name = 'paddle_1';
+let paddle_2_name = 'paddle_2';
+let brick_name = 'brick';
+
 
 function preload() {
-    this.load.image('ball', '/images/ball.png');
-    this.load.image('paddle', '/images/paddle.png');
-    this.load.image('brick', '/images/brick.png');
+    this.load.image(ball_name, '/images/ball.png');
+    this.load.image(paddle_1_name, '/images/paddle.png');
+    this.load.image(paddle_2_name, '/images/paddle.png');
+    this.load.image(brick_name, '/images/brick.png');
 }
 
 function create() {
-    ball = this.physics.add.sprite(WIDTH / 2, HEIGHT - 25, 'ball');
+    ball = this.physics.add.sprite(WIDTH / 2, HEIGHT / 2, ball_name);
     ball.setVelocity(250, -250);
     ball.setBounce(1);
     ball.setCollideWorldBounds(true);
@@ -46,19 +53,33 @@ function create() {
 
     bricks = this.physics.add.staticGroup();
 
-    paddle = this.physics.add.sprite(WIDTH / 2, HEIGHT - 5, 'paddle');
-    paddle.body.immovable = true;
-    paddle.setCollideWorldBounds(true);
+    for (var i = 0; i < PLAYERS_NUMBER; i += 1) {
+        if (!players[i]) {
+            players[i] = {};
+        }
+        players[i].speed = 0;
+        players[i].score = 0;
+
+        players[i].paddle = i % 2
+            ? this.physics.add.sprite(WIDTH - PADDING, HEIGHT / 2, paddle_2_name)
+            : this.physics.add.sprite(PADDING, HEIGHT / 2, paddle_1_name);
+        players[i].paddle.body.immovable = true;
+        players[i].paddle.setCollideWorldBounds(true);
+
+        this.physics.add.collider(ball, players[i].paddle);
+    }
 
     this.physics.world.on("worldbounds", function (body, up, down, left, right) {
-        if (down) {
-            game.scene.pause('default');
-            gameOver();
-            //alert("Game over!");
+        if (left) {
+            // TODO: 1st player loses one life
+            //game.scene.pause('default');
+            //gameOver();
+        }
+        if (right) {
+            // TODO: 2nd player loses one life
         }
     });
 
-    this.physics.add.collider(ball, paddle);
     this.scene.pause();
 }
 

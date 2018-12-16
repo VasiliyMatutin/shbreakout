@@ -36,34 +36,34 @@ socket.on('room_destroyed', function (data) {
 });
 
 $(document).ready(function() {
-    $('#left').on('mousedown', function() {
+    $('#up').on('mousedown', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
-            direction: 'left',
+            direction: 'up',
             start: true
         });
     }).on('mouseup', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
-            direction: 'left',
+            direction: 'up',
             start: false
         });
     });
 
-    $('#right').on('mousedown', function() {
+    $('#down').on('mousedown', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
-            direction: 'right',
+            direction: 'down',
             start: true
         });
     }).on('mouseup', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
-            direction: 'right',
+            direction: 'down',
             start: false
         });
     });

@@ -10,13 +10,13 @@ socket.on('room_assigned', function (data) {
     });
 });
 
-socket.on('player_ready', function (data) {
+socket.on('players_ready', function (data) {
     $(document).ready(function() {
         $('#gameStart').removeAttr("disabled");
     });
 });
 
-socket.on('player_not_ready', function (data) {
+socket.on('players_not_ready', function (data) {
     $(document).ready(function() {
         $('#gameStart').attr("disabled", true);
     });
@@ -33,19 +33,36 @@ socket.on('room_destroyed', function (data) {
 });
 
 socket.on('player_state_changed', function (data) {
+    let player = players[0].playerNumber === data.playerNumber ? players[0] : players[1];
+
     if (data.start) {
-        if (data.direction === 'left') {
-                player_speed -= PLAYER_SPEED_CHANGE;
-        } else if (data.direction === 'right'){
-                player_speed += PLAYER_SPEED_CHANGE;
+        if (data.direction === 'up') {
+            player.speed -= PLAYER_SPEED_CHANGE;
+        } else if (data.direction === 'down'){
+            player.speed += PLAYER_SPEED_CHANGE;
         } else {
-            player_speed = 0
+            player.speed = 0
         }
     } else {
-        player_speed = 0
+        player.speed = 0
     }
 
-    paddle.setVelocityX(player_speed);
+    player.paddle.setVelocityY(player.speed);
+});
+
+socket.on('game_start', function (data) {
+    //console.log("data for game start");
+    //console.log(data);
+
+    let i_player = 0;
+    for (var i_data in data) {
+        if (!players[i_player]) {
+            players[i_player] = {};
+        }
+
+        players[i_player].playerNumber = data[i_data].playerNumber;
+        i_player += 1;
+    }
 });
 
 $(document).ready(function() {
