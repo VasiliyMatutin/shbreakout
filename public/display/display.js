@@ -16,6 +16,12 @@ socket.on('player_ready', function (data) {
     });
 });
 
+socket.on('player_not_ready', function (data) {
+    $(document).ready(function() {
+        $('#gameStart').attr("disabled", true);
+    });
+});
+
 socket.on('room_destroyed', function (data) {
     $(document).ready(function() {
         stopGame();

@@ -90,6 +90,7 @@ io.sockets.on('connection', function (socket) {
                             gameSessions.delete(key);
                         } else {
                             delete gameSessions.get(key).players[player];
+                            roomFilled(key);
                         }
                         return;
                     }
@@ -112,7 +113,8 @@ function assignGameRoomOnConnection(socket) {
     gameSessions.set(roomNumber, {
         displaySocket: socket.id,
         players: {},
-        active: false
+        active: false,
+        players_id: 0
     });
 
     // Add viewer to gameRoom
@@ -132,7 +134,8 @@ function addPlayerToRoom(socket, roomNumber, playerName) {
     // Add player to gameRoom
     socket.join('room-' + roomNumber);
 
-    const playerNumber = Object.keys(gameSessions.get(roomNumber).players).length + 1;
+    const playerNumber = gameSessions.get(roomNumber).players_id;
+    gameSessions.get(roomNumber).players_id++;
 
     const room = gameSessions.get(roomNumber);
     room.players[socket.id] = {
@@ -151,6 +154,8 @@ function addPlayerToRoom(socket, roomNumber, playerName) {
 function roomFilled(roomNumber) {
     if (Object.keys(gameSessions.get(roomNumber).players).length === PLAYERS_REQUIRED){
         io.to(gameSessions.get(roomNumber).displaySocket).emit('player_ready');
+    } else {
+        io.to(gameSessions.get(roomNumber).displaySocket).emit('player_not_ready');
     }
 }
 
