@@ -102,3 +102,8 @@ function updatePlayersLife() {
     $('#lifePlayerLeft').text(players[PLAYER_LEFT].life);
     $('#lifePlayerRight').text(players[PLAYER_RIGHT].life);
 }
+
+function updatePlayersScore() {
+    $('#scorePlayerLeft').text(players[PLAYER_LEFT].score);
+    $('#scorePlayerRight').text(players[PLAYER_RIGHT].score);
+}
