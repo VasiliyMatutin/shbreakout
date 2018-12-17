@@ -2,10 +2,6 @@
     display: none;
 }
 
-.errors {
-    display: none;
-}
-
-.endgame {
+.message {
     display: none;
 }

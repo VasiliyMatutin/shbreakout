@@ -4,17 +4,26 @@ let playerNumber;
 let roomNumber;
 
 socket.on('connection_error', (data) => {
-    console.log('cannon_join_room');
+    $(document).ready(function() {
+        $('#main-container').hide();
+        $('#end-container').hide();
+        $('#error-container').show();
+    });
 });
 
 socket.on('joined_room', (data) => {
     playerNumber = data.playerNumber;
+    $(document).ready(function() {
+        $('#main-container').hide();
+        $('#wait-for-player-container').show();
+    });
 });
 
 socket.on('game_start', function (data) {
     $(document).ready(function() {
         $('#main-container').hide();
         $('#end-container').hide();
+        $('#wait-for-player-container').hide();
         $('#buttons-container').show();
     });
 });
