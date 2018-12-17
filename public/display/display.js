@@ -8,6 +8,8 @@ socket.on('room_assigned', function (data) {
     $(document).ready(function() {
         $('#roomNumber').text(roomNumber);
     });
+
+    $('#roomNumberInGame').text(roomNumber);
 });
 
 socket.on('players_ready', function (data) {
@@ -94,4 +96,9 @@ function gameOver() {
     socket.emit('game_over', {
         roomNumber
     });
+}
+
+function updatePlayersLife() {
+    $('#lifePlayerLeft').text(players[PLAYER_LEFT].life);
+    $('#lifePlayerRight').text(players[PLAYER_RIGHT].life);
 }
