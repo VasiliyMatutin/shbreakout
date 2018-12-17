@@ -12,7 +12,6 @@ socket.on('connection_error', (data) => {
 });
 
 socket.on('joined_room', (data) => {
-    console.log('ugu');
     playerNumber = data.playerNumber;
     $(document).ready(function() {
         $('#main-container').hide();
