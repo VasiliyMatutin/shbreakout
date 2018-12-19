@@ -9,6 +9,12 @@
     user-select: none;
 }
 
+.controller * {
+    width: 99%;
+    height: 90%;
+    font-size: 150%;
+}
+
 .message {
     display: none;
 }

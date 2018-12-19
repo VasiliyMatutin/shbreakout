@@ -53,3 +53,9 @@ button:disabled {
     background: linear-gradient(#528187, #528187) #ffffff;
     color: #528187
 }
+
+.mobile * {
+    width: 99%;
+    height: 90%;
+    font-size: 150%;
+}
