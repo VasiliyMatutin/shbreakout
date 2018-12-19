@@ -127,7 +127,7 @@ function assignGameRoomOnConnection(socket) {
 }
 
 function addPlayerToRoom(socket, roomNumber, playerName) {
-    if (!gameSessions.has(roomNumber) || gameSessions.get(roomNumber).players.length === PLAYERS_REQUIRED) {
+        if (!gameSessions.has(roomNumber) || Object.keys(gameSessions.get(roomNumber).players).length >= PLAYERS_REQUIRED) {
         kickClient(socket);
         return;
     }
