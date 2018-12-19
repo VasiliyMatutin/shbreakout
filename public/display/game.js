@@ -155,6 +155,10 @@ function create() {
     ball.setBounce(1);
     ball.setCollideWorldBounds(true);
     ball.body.onWorldBounds = true;
+    ball.setPosition(
+        100,
+        100
+    );
 
     // Setup ball collisions with the walls
     this.physics.world.on("worldbounds", function (body, up, down, left, right) {
