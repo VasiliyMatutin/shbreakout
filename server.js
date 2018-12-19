@@ -12,7 +12,7 @@ const ROOM_NUMBER_UP_LIMIT = 999999;
 const ROOM_NUMBER_DOWN_LIMIT = 100000;
 
 const app = express();
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 const server = http.createServer(app);
@@ -127,7 +127,7 @@ function assignGameRoomOnConnection(socket) {
 }
 
 function addPlayerToRoom(socket, roomNumber, playerName) {
-        if (!gameSessions.has(roomNumber) || Object.keys(gameSessions.get(roomNumber).players).length >= PLAYERS_REQUIRED) {
+    if (!gameSessions.has(roomNumber) || Object.keys(gameSessions.get(roomNumber).players).length >= PLAYERS_REQUIRED) {
         kickClient(socket);
         return;
     }
