@@ -45,14 +45,14 @@ socket.on('room_destroyed', function (data) {
 });
 
 $(document).ready(function() {
-    $('#up').on('mousedown', function() {
+    $('#up').on('click touchstart', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
             direction: 'up',
             start: true
         });
-    }).on('mouseup', function() {
+    }).on('click touchend', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
@@ -61,14 +61,14 @@ $(document).ready(function() {
         });
     });
 
-    $('#down').on('mousedown', function() {
+    $('#down').on('click touchstart', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,
             direction: 'down',
             start: true
         });
-    }).on('mouseup', function() {
+    }).on('click touchend', function() {
         socket.emit('player_state_changed', {
             playerNumber,
             roomNumber,

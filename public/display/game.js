@@ -149,6 +149,7 @@ function initPlayers(game) {
 }
 
 function create() {
+    this.scene.pause();
     // Init ball
     ball = this.physics.add.sprite(undefined, undefined, ball_name);
     ball.setBounce(1);
@@ -180,8 +181,6 @@ function create() {
             isGameOver();
         }
     });
-
-    this.scene.pause();
 }
 
 function update() {
