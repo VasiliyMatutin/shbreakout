@@ -3,55 +3,43 @@ html, body, #desktop-container {
     margin: 0;
 }
 
+* {
+    font-family: 'Showcard Gothic', monospace;
+    text-align: center;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 body {
-    background: black;
-    font-family: 'NevisRegular', monospace;
+    background: #00738b;
     font-size: 18px;
-    line-height: 1.3;
-    padding: 0 19px;
     color: white;
 }
 
-p {
-    margin-bottom: 10px;
-}
-
 a {
+    text-align: center;
     color: #FFF;
     text-decoration: underline;
 }
 
-.button {
-    background: #e6ce00;
-    position: relative;
-    border-bottom: 5px solid #b6a300;
-    display: inline-block;
-
-}
-
 button {
-    background: #ffe400;
-    border: none;
-    color: #272d33;
-    font: 30px 'NevisRegular';
-    margin: 0;
-    padding: 15px 30px;
-    cursor: pointer;
-    outline: 0;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: .5em 2em;
+    outline: none;
+    border-width: 2px 0;
+    border-style: solid none;
+    border-color: #8cdbe6 #000 #06c8e6;
+    border-radius: 6px;
+    background: linear-gradient(#8cdbe6, #06c8e6) #00d4ff;
+    transition: 0.2s;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-
-wrapper {
-    position: relative;
-    background: #191f26;
-    min-height: 100%;
-    height: 100%;
-    width: 100%;
-}
-
-.row {
-    width: 960px;
-    margin: 0 auto;
-    max-width: 100%;
-    list-style: none;
-    overflow-x: visible;
-}
+button:hover { background: linear-gradient(#8cdbe6, #00738b) #21b8d6; }
+button:active { background: linear-gradient(#21b8d6, #8cdbe6) #00738b; }

@@ -8,19 +8,25 @@
 }
 
 .main {
-    border-top: 19px solid black;
-    background: #272d33;
+    background: #00738b;
 }
 
 h1 {
-    font-family: 'NevisBold', monospace;
-    font-size: 150px;
-    text-align: center;
+    font-size: 130px;
     margin-top: 40px;
 }
 
 h2 {
-    font-size: 40px;
+    margin-top: 20px;
+    font-size: 30px;
+}
+
+button {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 200px;
+    height: 60px;
+    font-size: 20px;
 }
 
 
@@ -34,9 +40,6 @@ h2 {
     }
 
     h1 {
-        font-family: 'NevisBold', monospace;
         font-size: 30px;
-        text-align: center;
-        margin-top: 40px;
     }
 }
