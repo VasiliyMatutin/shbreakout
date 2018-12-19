@@ -55,8 +55,8 @@ socket.on('player_state_changed', function (data) {
 });
 
 socket.on('game_start', function (data) {
-    //console.log("data for game start");
-    //console.log(data);
+    console.log("data for game start");
+    console.log(data);
 
     let i_player = 0;
     for (var i_data in data) {
@@ -115,6 +115,7 @@ function updatePlayersScore() {
 
 function setLeaderboard(leaderboard) {
     $('#leaderboard').text("");
+    //console.log(leaderboard);
 
     let tableHTML =
         '<tr style="margin: auto; text-allign: center">' +

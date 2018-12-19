@@ -80,9 +80,10 @@ $(document).ready(function() {
     $('#confirm').off('click').on('click', function (event) {
         event.preventDefault();
         roomNumber = $('#roomNumber').val();
+        playerName = $('#playerName').val();
         socket.emit('controller_connection', {
             roomNumber: roomNumber,
-            playerName: 'testBot'
+            playerName: playerName
         });
     });
 });
