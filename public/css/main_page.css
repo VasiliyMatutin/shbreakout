@@ -4,14 +4,6 @@
     display: none;
 }
 
-.mobile * {
-    display: none;
-    width: 90%;
-    height: 300%;
-    font-size: 300%;
-}
-
-
 .main {
     background: #00738b;
 }
