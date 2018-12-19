@@ -30,6 +30,8 @@ socket.on('room_destroyed', function (data) {
         $('#main-container').hide();
         $('#end-container').hide();
         $('#game-container').hide();
+        $('#wait-for-player-container').hide();
+
         $('#room-delete-container').show();
     });
 });
@@ -63,6 +65,7 @@ socket.on('game_start', function (data) {
         }
 
         players[i_player].playerNumber = data[i_data].playerNumber;
+        players[i_player].playerName = data[i_data].playerName;
         i_player += 1;
     }
 });
@@ -89,6 +92,8 @@ $(document).ready(function() {
 });
 
 function gameOver() {
+    setLeaderboard(getLeaderboard(players));
+
     $(document).ready(function() {
         $('#game-container').hide();
         $('#end-container').show();
@@ -106,4 +111,27 @@ function updatePlayersLife() {
 function updatePlayersScore() {
     $('#scorePlayerLeft').text(players[PLAYER_LEFT].score);
     $('#scorePlayerRight').text(players[PLAYER_RIGHT].score);
+}
+
+function setLeaderboard(leaderboard) {
+    $('#leaderboard').text("");
+
+    let tableHTML =
+        '<tr style="margin: auto; text-allign: center">' +
+        '<td style="padding-bottom: 20px;">position</td>' +
+        '<td style="padding-bottom: 20px;">player</td>' +
+        '<td style="padding-bottom: 20px;">score</td>' +
+        '</tr>';
+
+    for (player of leaderboard){
+        console.log(player);
+        tableHTML +=
+            '<tr>' +
+            '<td>' + player.leaderboardPosition + '</td>' +
+            '<td>' + player.playerName + '</td>' +
+            '<td>' + player.score + '</td>' +
+            '</tr>';
+    }
+
+    $('#leaderboard').append(tableHTML);
 }

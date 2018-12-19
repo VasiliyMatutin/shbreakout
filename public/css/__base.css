@@ -1,11 +1,13 @@
-html, body, #desktop-container {
-    padding: 0;
-    margin: 0;
+html, body, #desktop-container, #game-container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 * {
     font-family: 'Showcard Gothic', monospace;
     text-align: center;
+    vertical-align: middle;
 }
 
 .container {
@@ -41,5 +43,13 @@ button {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-button:hover { background: linear-gradient(#8cdbe6, #00738b) #21b8d6; }
-button:active { background: linear-gradient(#21b8d6, #8cdbe6) #00738b; }
+button:hover {
+    background: linear-gradient(#8cdbe6, #00738b) #21b8d6;
+}
+button:active {
+    background: linear-gradient(#21b8d6, #8cdbe6) #00738b;
+}
+button:disabled {
+    background: linear-gradient(#528187, #528187) #ffffff;
+    color: #528187
+}

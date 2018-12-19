@@ -26,6 +26,8 @@ const config = {
     type: Phaser.AUTO,
     width: WIDTH,
     height: HEIGHT,
+    top: 0,
+    left: 0,
     scene: {
         preload: preload,
         create: create,
@@ -33,8 +35,8 @@ const config = {
     },
     callbacks: {
         postBoot: function (game) {
-            game.canvas.style.width = '100%';
-            game.canvas.style.height = '100%';
+            game.canvas.style.width = '90%';
+            game.canvas.style.height = '90%';
         }
     },
     physics: {
@@ -63,8 +65,26 @@ let alivePlayersCount = players => {
     return count;
 };
 
+let getLeaderboard = players => {
+    let sorted = players.sort(function(first, second) {
+        return second.score - first.score;
+    });
+
+    let position = 1;
+    sorted[0].leaderboardPosition = position;
+    for (var i = 1; i < PLAYERS_NUMBER; i += 1) {
+        if (sorted[i].score !== sorted[i - 1].score) {
+            position += 1;
+        }
+        sorted[i].leaderboardPosition = position;
+    }
+
+    return sorted;
+};
+
 function isGameOver() {
     if (alivePlayersCount(players) <= 1) {
+        stopGame();
         gameOver();
     }
 }
@@ -90,8 +110,8 @@ function initBricks(game) {
             let position = M * i + j;
             bricks[position] = game.physics.add.sprite(undefined, undefined, brick_name);
 
-            let startX = ( WIDTH - bricks[position].width * N - SHIFT * N ) / 2;
-            let startY = ( HEIGHT - bricks[position].height * M - SHIFT * M ) / 2;
+            let startX = ( WIDTH - bricks[position].width * N - SHIFT * (N - 1) ) / 2;
+            let startY = ( HEIGHT - bricks[position].height * M - SHIFT * (M -1) ) / 2;
 
             bricks[position].body.immovable = true;
             bricks[position].setPosition(

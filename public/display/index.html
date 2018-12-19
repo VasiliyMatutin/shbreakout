@@ -25,9 +25,9 @@
                 <button id="gameStart" disabled>Start!</button>
             </div>
             <div class='game' id='game-container'>
-                <div class="room_number">
-                    Room <label id="roomNumberInGame"></label> | ♥ <label id="lifePlayerLeft"></label> ★ <label id="scorePlayerLeft"></label> | ♥ <label id="lifePlayerRight"></label> ★ <label id="scorePlayerRight"></label>
-                </div>
+                ♥ <label id="lifePlayerLeft"></label> ★ <label id="scorePlayerLeft"></label>    |
+                Room <label id="roomNumberInGame"></label> |
+                ♥ <label id="lifePlayerRight"></label> ★ <label id="scorePlayerRight"></label>
             </div>
             <div class="errors" id="error-container">
                 Ooops... Something went wrong :( <br>
@@ -40,7 +40,9 @@
             <div class="endgame" id="end-container">
                 <h1> Game over! </h1>
                 <h2> Please restart to play again. </h2>
-                <button id="gameRestart">Restart!</button>
+                <button id="gameRestart">Restart!</button> <br>
+                <h1>Leaderboard</h1>
+                <table align="center" id="leaderboard"></table>
             </div>
     </div>
 </body>
