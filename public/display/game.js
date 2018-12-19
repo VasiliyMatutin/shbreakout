@@ -116,11 +116,15 @@ function initPlayers(game) {
         players[i].score = 0;
         players[i].life = MAX_PLAYER_LIFE;
 
-        players[i].paddle = game.physics.add.sprite(paddle.x, paddle.y, paddle.name);
-        players[i].paddle.body.immovable = true;
-        players[i].paddle.setCollideWorldBounds(true);
+        if (!players[i].paddle) {
+            players[i].paddle = game.physics.add.sprite(paddle.x, paddle.y, paddle.name);
+            players[i].paddle.body.immovable = true;
+            players[i].paddle.setCollideWorldBounds(true);
 
-        game.physics.add.collider(ball, players[i].paddle, collisionBallPlayer);
+            game.physics.add.collider(ball, players[i].paddle, collisionBallPlayer);
+        }
+
+        players[i].paddle.setPosition(paddle.x, paddle.y);
     }
 }
 
